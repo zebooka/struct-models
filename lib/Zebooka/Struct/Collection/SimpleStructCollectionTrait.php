@@ -5,7 +5,7 @@ namespace Zebooka\Struct\Collection;
 use Zebooka\Struct\SimpleStructTrait;
 
 /**
- * Use this trait if your collection model contstructed without params.
+ * Use this trait if your collection model constructed without params.
  */
 trait SimpleStructCollectionTrait
 {

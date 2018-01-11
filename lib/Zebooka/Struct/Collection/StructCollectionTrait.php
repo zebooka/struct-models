@@ -11,7 +11,7 @@ trait StructCollectionTrait
     protected function assignProperties(array $data)
     {
         foreach ($data as $key => $value) {
-            $this->{$key} = static::itemFromDoc($value);
+            $this->{$key} = (static::consistsOf($value) ? $value : static::itemFromDoc($value));
         }
         return $this;
     }
