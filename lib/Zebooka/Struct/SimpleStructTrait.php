@@ -3,7 +3,7 @@
 namespace Zebooka\Struct;
 
 /**
- * Use this trait if your model does not contain sub models.
+ * Use this trait if your model does not contain sub models and you can construct it without params.
  */
 trait SimpleStructTrait
 {

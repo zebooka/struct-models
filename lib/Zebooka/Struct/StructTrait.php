@@ -50,4 +50,14 @@ trait StructTrait
         }
         return $doc;
     }
+
+    protected function isPropertyIsPublic($property)
+    {
+        try {
+            return (new \ReflectionProperty($this, $property))->isPublic();
+        } catch (\ReflectionException $e) {
+            // object has no such property, thus it is considered public
+            return true;
+        }
+    }
 }
