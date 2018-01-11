@@ -4,11 +4,11 @@ namespace Zebooka\Struct;
 
 use PHPUnit\Framework\TestCase;
 
-class DocExampleTest extends TestCase
+class StructTest extends TestCase
 {
     public function test_fromDoc()
     {
-        $struct = Person::fromDoc(['name' => 'John Doe', 'birthday' => '1985-07-15']);
+        $struct = PersonExample::fromDoc(['name' => 'John Doe', 'birthday' => '1985-07-15']);
         $this->assertObjectHasAttribute('name', $struct);
         $this->assertObjectHasAttribute('birthday', $struct);
         $this->assertInstanceOf('DateTime', $struct->birthday);
@@ -18,14 +18,14 @@ class DocExampleTest extends TestCase
 
     public function test_fromDoc_without_birthday()
     {
-        $struct = Person::fromDoc(['name' => 'John Doe']);
+        $struct = PersonExample::fromDoc(['name' => 'John Doe']);
         $this->assertObjectHasAttribute('name', $struct);
         $this->assertObjectNotHasAttribute('birthday', $struct);
     }
 
     public function test_fromDoc_with_invalid_birthday()
     {
-        $struct = Person::fromDoc(['name' => 'John Doe', 'birthday' => ['1985', '07', '15']]);
+        $struct = PersonExample::fromDoc(['name' => 'John Doe', 'birthday' => ['1985', '07', '15']]);
         $this->assertObjectHasAttribute('name', $struct);
         $this->assertObjectHasAttribute('birthday', $struct);
         $this->assertInternalType('array', $struct->birthday);
@@ -35,7 +35,7 @@ class DocExampleTest extends TestCase
     public function test_toDoc()
     {
         $original = ['name' => 'John Doe', 'birthday' => 'Mon, 15 Jul 1985 00:00:00 +0800'];
-        $struct = Person::fromDoc($original);
+        $struct = PersonExample::fromDoc($original);
         $doc = $struct->toDoc();
         $this->assertInternalType('array', $doc);
         $this->assertEquals(['name', 'birthday'], array_keys($doc));
@@ -48,7 +48,7 @@ class DocExampleTest extends TestCase
  * @property string $name
  * @property \DateTime $birthday
  */
-class Person implements StructInterface
+class PersonExample implements StructInterface
 {
     use StructTrait;
 
@@ -58,13 +58,13 @@ class Person implements StructInterface
         $person->assignProperties($doc);
         if (is_scalar($person->birthday)) {
             // do not harm document if value is not of expected type
-            $person->birthday = new DateTime($person->birthday);
+            $person->birthday = new DateTimeExample($person->birthday);
         }
         return $person;
     }
 }
 
-class DateTime extends \DateTime implements StructInterface
+class DateTimeExample extends \DateTime implements StructInterface
 {
     public static function fromDoc($doc)
     {
