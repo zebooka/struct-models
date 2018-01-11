@@ -1,0 +1,22 @@
+{
+    "name": "zebooka/struct-models",
+    "description": "Micro framework for document oriented models.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Anton Bondar",
+            "email": "zebooka@xiag.ch"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-0": {
+            "Zebooka": "lib/"
+        }
+    },
+    "require": {
+        "php": "^5.4 || ^7.0",
+        "phpunit/phpunit": "*"
+    }
+}
