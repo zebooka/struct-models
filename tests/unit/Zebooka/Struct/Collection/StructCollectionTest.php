@@ -6,14 +6,14 @@ use PHPUnit\Framework\TestCase;
 use Zebooka\Struct\Collection\SimpleStructCollectionTrait;
 use Zebooka\Struct\Collection\StructCollectionInterface;
 
-class CollectionTest extends TestCase
+class StructCollectionTest extends TestCase
 {
     public function test_fromDoc()
     {
         $collection = FruitsCollectionExample::fromDoc([['taste' => 'sweet'], ['taste' => 'sour']]);
 
-        $this->assertInstanceOf('\ArrayAccess', $collection);
-        $this->assertInstanceOf('\Countable', $collection);
+        $this->assertInstanceOf('\\ArrayAccess', $collection);
+        $this->assertInstanceOf('\\Countable', $collection);
 
         $this->assertArrayHasKey(0, $collection);
         $this->assertArrayHasKey(1, $collection);
@@ -21,13 +21,13 @@ class CollectionTest extends TestCase
         $collection->{2} = FruitExample::fromDoc(['taste' => 'bitter']);
         $collection[3] = FruitExample::fromDoc(['taste' => 'plain']);
         $this->assertCount(4, $collection);
-        $this->assertInstanceOf('\\Zebooka\\Struct\\FruitExample', $collection[3]);
+        $this->assertInstanceOf('Zebooka\\Struct\\FruitExample', $collection[3]);
         unset($collection[3]);
         $this->assertCount(3, $collection);
 
-        $this->assertInstanceOf('\Traversable', $collection);
+        $this->assertInstanceOf('\\Traversable', $collection);
         foreach ($collection as $item) {
-            $this->assertInstanceOf('\\Zebooka\\Struct\\FruitExample', $item);
+            $this->assertInstanceOf('Zebooka\\Struct\\FruitExample', $item);
         }
     }
 

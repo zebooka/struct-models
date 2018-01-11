@@ -12,7 +12,9 @@ trait StructTrait
     protected function assignProperties(array $data)
     {
         foreach ($data as $key => $value) {
-            $this->{$key} = $value;
+            if ($this->isPropertyIsPublic($key)) {
+                $this->{$key} = $value;
+            }
         }
         return $this;
     }

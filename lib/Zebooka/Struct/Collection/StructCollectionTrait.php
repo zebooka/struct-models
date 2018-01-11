@@ -11,7 +11,9 @@ trait StructCollectionTrait
     protected function assignProperties(array $data)
     {
         foreach ($data as $key => $value) {
-            $this->{$key} = (static::consistsOf($value) ? $value : static::itemFromDoc($value));
+            if ($this->isPropertyIsPublic($key)) {
+                $this->{$key} = (static::consistsOf($value) ? $value : static::itemFromDoc($value));
+            }
         }
         return $this;
     }
@@ -61,11 +63,13 @@ trait StructCollectionTrait
 
     public function getIterator()
     {
-        return new \ArrayIterator(array_map(
-            function (\ReflectionProperty $reflectionProperty) {
-                return $reflectionProperty->getValue($this);
-            },
-            (new \ReflectionObject($this))->getProperties(\ReflectionProperty::IS_PUBLIC)
-        ));
+        return new \ArrayIterator(
+            array_map(
+                function (\ReflectionProperty $reflectionProperty) {
+                    return $reflectionProperty->getValue($this);
+                },
+                (new \ReflectionObject($this))->getProperties(\ReflectionProperty::IS_PUBLIC)
+            )
+        );
     }
 }

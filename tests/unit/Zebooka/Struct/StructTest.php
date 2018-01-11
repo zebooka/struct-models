@@ -11,7 +11,7 @@ class StructTest extends TestCase
         $struct = PersonExample::fromDoc(['name' => 'John Doe', 'birthday' => '1985-07-15']);
         $this->assertObjectHasAttribute('name', $struct);
         $this->assertObjectHasAttribute('birthday', $struct);
-        $this->assertInstanceOf('DateTime', $struct->birthday);
+        $this->assertInstanceOf('Zebooka\\Struct\\DateTimeExample', $struct->birthday);
         $this->assertEquals('1985-07-15', $struct->birthday->format('Y-m-d'));
         $this->assertNull($struct->unexistingProperty);
     }
